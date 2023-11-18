@@ -3,8 +3,7 @@ import mongoose from "mongoose";
 class MongoDBConnection {
   connect() {
     try {
-      const connectionString =
-        "mongodb+srv://hosainabdellatif:amnotpro@cluster0.rmwcohu.mongodb.net/commerce";
+      const connectionString ="";
 
       mongoose.connect(connectionString).then(() => {
         console.log("DB Connected");
