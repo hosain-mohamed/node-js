@@ -1,4 +1,4 @@
-// choose the correct datasource
+// import the correct datasource
 import * as datasource from "./file.product.source.js";
 
 // get products
