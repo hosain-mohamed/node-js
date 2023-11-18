@@ -48,6 +48,7 @@
     "lodash": "^4.17.21",
     "log-symbols": "^4.1.0",
     "mimic-fn": "^2.1.0",
+    "mongoose": "^8.0.1",
     "morgan": "^1.10.0",
     "mute-stream": "^1.0.0",
     "onetime": "^5.1.2",

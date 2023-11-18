@@ -1,26 +1,51 @@
-import * as ProductRepository from "./product.datasource/product.repository.js";
+import di from "../../../di.js";
+const ProductRepository = di.productRepository;
 
 // get products
-export function getProducts(req, res) {
-  return ProductRepository.getProducts(req, res);
+export async function getProducts(req, res) {
+  const products = await ProductRepository.getProducts(req, res);
+  if (!products.length) {
+    return res.json({ message: "No Products Found", products: products });
+  }
+  return res.json({ products: products });
 }
 
 // product details
-export function getProduct(req, res) {
-  return ProductRepository.getProduct(req, res);
+export async function getProduct(req, res) {
+  const product = await ProductRepository.getProduct(req, res);
+  if (!product) {
+    return res.status(404).json({ message: "Product Not Found" });
+  }
+  return res.json({ product: product });
 }
 
 // add product
-export function addProduct(req, res) {
-  return ProductRepository.addProduct(req, res);
+export async function addProduct(req, res) {
+  const newProduct = await ProductRepository.addProduct(req, res);
+  res
+    .status(201)
+    .json({ message: "Product Added Successfully", product: newProduct });
 }
 
 // update product
-export function updateProduct(req, res) {
-  return ProductRepository.updateProduct(req, res);
+export async function updateProduct(req, res) {
+  const updatedProduct = await ProductRepository.updateProduct(req, res);
+  if (!updatedProduct) {
+    return res.status(404).json({ message: "Product Not Found" });
+  }
+  res.json({
+    message: "Product Updated Successfully",
+    product: updatedProduct,
+  });
 }
 
 // delete product
-export function deleteProduct(req, res) {
-  return ProductRepository.deleteProduct(req, res);
+export async function deleteProduct(req, res) {
+  const deletedProduct = await ProductRepository.deleteProduct(req, res);
+  if (!deletedProduct) {
+    return res.status(404).json({ message: "Product Not Found" });
+  } else
+    res.json({
+      message: "Product Deleted Successfully",
+    });
 }

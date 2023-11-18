@@ -1,4 +1,6 @@
 import express from "express";
+import di from "./di.js";
+
 const app = express();
 import productsRouter from "./src/modules/product/product.router.js";
 const port = 3005;
@@ -14,3 +16,8 @@ app.use("/api/products", productsRouter);
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+// DB
+
+const dbConnection = di.dbConnection;
+dbConnection.connect();

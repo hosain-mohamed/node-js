@@ -3,7 +3,7 @@ import joi from "joi";
 // Validations for product details
 export const productDetails = {
   params: joi.object({
-    id: joi.number().required(),
+    id: joi.required(),
   }),
 };
 
@@ -24,13 +24,13 @@ export const updateProduct = {
     })
     .min(1),
   params: joi.object({
-    id: joi.number().required(),
+    id: joi.required(),
   }),
 };
 
 // validation for delete product
 export const deleteProduct = {
   params: joi.object({
-    id: joi.number().required(),
+    id: joi.required(),
   }),
 };
