@@ -11,7 +11,7 @@ router.get("/", requestHandler(controller.getProducts));
 router.get(
   "/:id",
   validationSchema(validator.productDetails),
-  requestHandler(controller.getProductDetails)
+  requestHandler(controller.getProduct)
 );
 
 // add Product
