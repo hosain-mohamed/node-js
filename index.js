@@ -1,7 +1,7 @@
 import express from "express";
 const app = express();
-import productsRouter from "./modules/products/products_router.js";
-const port = 3000;
+import productsRouter from "./src/modules/products.router.js";
+const port = 3005;
 
 // middleware
 app.use(express.urlencoded({ extended: true }));
