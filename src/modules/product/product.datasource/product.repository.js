@@ -1,4 +1,5 @@
-import * as datasource from "./file.product.model.js";
+// choose the correct datasource
+import * as datasource from "./file.product.source.js";
 
 // get products
 export function getProducts(req, res) {
