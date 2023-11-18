@@ -1,6 +1,6 @@
 import express from "express";
 const app = express();
-import productsRouter from "./src/modules/products.router.js";
+import productsRouter from "./src/modules/product/product.router.js";
 const port = 3005;
 
 // middleware

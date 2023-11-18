@@ -1,9 +1,9 @@
 import { Router } from "express";
 const router = Router();
-import * as controller from "./products.controller.js";
-import * as validator from "./products.validator.js";
-import { validationSchema } from "../middleware/validation.middleware.js";
-import { requestHandler } from "../utils/error_handler.js  ";
+import * as controller from "./product.controller.js";
+import * as validator from "./product.validator.js";
+import { validationSchema } from "../../middleware/validation.middleware.js";
+import { requestHandler } from "../../utils/error_handler.js  ";
 // get Products
 router.get("/", requestHandler(controller.getProducts));
 
