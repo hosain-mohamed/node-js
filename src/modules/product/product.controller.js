@@ -1,5 +1,4 @@
-import di from "../../../di.js";
-const ProductRepository = di.productRepository;
+import ProductRepository from "./product.di.js";
 
 // get products
 export async function getProducts(req, res) {
