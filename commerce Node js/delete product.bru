@@ -1,0 +1,16 @@
+meta {
+  name: delete product
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{url}}/api/products/
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  name: Iphone%204
+  price: 400
+}

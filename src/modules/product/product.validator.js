@@ -1,36 +1,41 @@
-import joi from "joi";
+import { Joi } from "../../middleware/validation.middleware.js";
 
 // Validations for product details
+export const getProducts = {
+  query: Joi.object({
+    page: Joi.number().min(1),
+    limit: Joi.number().min(1),
+  }),
+};
+
 export const productDetails = {
-  params: joi.object({
-    id: joi.required(),
+  params: Joi.object({
+    id: Joi.required(),
   }),
 };
 
 // Validations for add product
 export const addProduct = {
-  body: joi.object({
-    name: joi.string().required().min(3).max(50),
-    price: joi.number().required(),
+  body: Joi.object({
+    name: Joi.string().required().min(3).max(50),
+    price: Joi.number().required(),
   }),
 };
 
 // Validations for update product
 export const updateProduct = {
-  body: joi
-    .object({
-      name: joi.string().min(3).max(50),
-      price: joi.number(),
-    })
-    .min(1),
-  params: joi.object({
-    id: joi.required(),
+  body: Joi.object({
+    name: Joi.string().min(3).max(50),
+    price: Joi.number(),
+  }).or("name", "price"),
+  params: Joi.object({
+    id: Joi.required(),
   }),
 };
 
 // validation for delete product
 export const deleteProduct = {
-  params: joi.object({
-    id: joi.required(),
+  params: Joi.object({
+    id: Joi.required(),
   }),
 };

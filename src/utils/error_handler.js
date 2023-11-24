@@ -3,8 +3,10 @@ export function requestHandler(functionToHandle) {
     try {
       functionToHandle(req, res);
     } catch (error) {
-      // console.log(error);
-      res.status(500).json({ message: error.message });
+      res.status(500).json({
+        status: "error",
+        message: error.message,
+      });
     }
   };
 }

@@ -1,3 +1,17 @@
+import joi from "joi";
+import * as httpStatus from "../utils/http_status_text.js";
+
+export const Joi = joi.defaults((schema) => {
+  return schema.options({
+    errors: {
+      wrap: {
+        // Remove quotes from variable names in error messages
+        label: false,
+      },
+    },
+  });
+});
+
 const reqValues = ["body", "params", "query"];
 
 export const validationSchema = (schema) => {
@@ -12,13 +26,17 @@ export const validationSchema = (schema) => {
       });
       if (error) {
         const { details } = error;
-        const message = details.map((i) => i.message).join(",");
-        errors.push(message);
+        details.map((i) => {
+          const message = { [i.context.label]: i.message };
+          errors.push(message);
+        });
       }
     });
     if (errors.length) {
-      const message = errors.join(",");
-      return res.status(400).json({ error: message });
+      return res.status(400).json({
+        status: httpStatus.FAIL,
+        data: errors,
+      });
     }
     next();
   };

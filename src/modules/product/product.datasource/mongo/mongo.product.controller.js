@@ -4,7 +4,13 @@ import mongoose from "mongoose";
 class MongoProductController {
   // get products
   async getProducts(req, res) {
-    const products = await productModel.find();
+    const page = +req.query.page || 1;
+    const limit = +req.query.limit || 10;
+    const skip = (page - 1) * limit;
+    const products = await productModel
+      .find({}, { __v: false })
+      .skip(skip)
+      .limit(limit);
     return products;
   }
 
@@ -12,7 +18,7 @@ class MongoProductController {
   async getProduct(req, res) {
     const id = req.params.id;
     return checkValidId(id, async () => {
-      const product = await productModel.findById(id);
+      const product = await productModel.findById(id, { __v: false });
       return product;
     });
   }

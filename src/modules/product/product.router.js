@@ -3,9 +3,13 @@ const router = Router();
 import * as controller from "./product.controller.js";
 import * as validator from "./product.validator.js";
 import { validationSchema } from "../../middleware/validation.middleware.js";
-import { requestHandler } from "../../utils/error_handler.js  ";
+import { requestHandler } from "../../utils/error_handler.js";
 // get Products
-router.get("/", requestHandler(controller.getProducts));
+router.get(
+  "/",
+  validationSchema(validator.getProducts),
+  controller.getProducts
+);
 
 // getProductDetails
 router.get(

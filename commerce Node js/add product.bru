@@ -1,0 +1,16 @@
+meta {
+  name: add product
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{url}}/api/products/
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  ~name: Iphone%2010
+  ~price: 4000
+}

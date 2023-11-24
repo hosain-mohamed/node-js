@@ -8,21 +8,21 @@ const productsPath = __dirname + "/products.json";
 class FileProductController {
   // get products
   async getProducts(req, res) {
-    const products = await _getProducts();
+    const products = await getProductsFromFile();
     return products;
   }
 
   // product details
   async getProduct(req, res) {
     const id = +req.params.id;
-    const products = await _getProducts();
+    const products = await getProductsFromFile();
     const product = products.find((product) => product.id === id);
     return product;
   }
 
   // add product
   async addProduct(req, res) {
-    let products = await _getProducts();
+    let products = await getProductsFromFile();
 
     if (!fs.existsSync(productsPath)) {
       fs.writeFileSync(productsPath, JSON.stringify([]));
@@ -42,7 +42,7 @@ class FileProductController {
 
   // update product
   async updateProduct(req, res) {
-    const products = await _getProducts();
+    const products = await getProductsFromFile();
     const id = +req.params.id;
     const product = await _getProduct(id);
     if (!product) return;
@@ -55,7 +55,7 @@ class FileProductController {
 
   // delete product
   async deleteProduct(req, res) {
-    const products = await _getProducts();
+    const products = await getProductsFromFile();
     const id = +req.params.id;
     const product = await _getProduct(id);
     if (!product) return;
@@ -64,20 +64,19 @@ class FileProductController {
     fs.writeFileSync(productsPath, JSON.stringify(products));
     return product;
   }
+}
 
-  async _getProduct(id) {
-    const products = await _getProducts();
-    const product = products.find((product) => product.id === id);
-    return product;
-  }
-
-  _getProducts() {
-    if (!fs.existsSync(productsPath)) {
-      return [];
-    } else {
-      const content = JSON.parse(fs.readFileSync(productsPath, "utf8"));
-      return content;
-    }
+async function _getProduct(id) {
+  const products = await getProductsFromFile();
+  const product = products.find((product) => product.id === id);
+  return product;
+}
+async function getProductsFromFile() {
+  if (!fs.existsSync(productsPath)) {
+    return [];
+  } else {
+    const content = JSON.parse(fs.readFileSync(productsPath, "utf8"));
+    return content;
   }
 }
 

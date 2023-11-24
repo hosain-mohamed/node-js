@@ -21,6 +21,3 @@ build/
 # Miscellaneous
 .DS_Store
 Thumbs.db
-
-# MongoDB files
-data/
