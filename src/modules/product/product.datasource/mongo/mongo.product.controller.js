@@ -1,5 +1,7 @@
 import productModel from "./product.model.js";
 import mongoose from "mongoose";
+import AppError from "../../../../utils/app.error.js";
+import * as httpMessages from "../../../../utils/http.message.text.js";
 
 class MongoProductController {
   // get products
@@ -57,7 +59,7 @@ class MongoProductController {
 // check if product exists
 async function checkValidId(id, callBack) {
   const isValidId = mongoose.Types.ObjectId.isValid(id);
-  if (!isValidId) return;
+  if (!isValidId) throw new AppError(500, httpMessages.INVALID_ID);
   return callBack();
 }
 

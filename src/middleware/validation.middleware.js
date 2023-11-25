@@ -1,5 +1,5 @@
 import joi from "joi";
-import * as httpStatus from "../utils/http_status_text.js";
+import * as httpStatus from "../utils/http.status.text.js";
 
 export const Joi = joi.defaults((schema) => {
   return schema.options({

@@ -1,6 +1,7 @@
 import ProductRepository from "./product.di.js";
-import * as httpStatus from "../../utils/http_status_text.js";
-import * as httpMessages from "../../utils/http_message_text.js";
+import * as httpStatus from "../../utils/http.status.text.js";
+import * as httpMessages from "../../utils/http.message.text.js";
+import AppError from "../../utils/app.error.js";
 
 // get products
 export async function getProducts(req, res) {
@@ -12,12 +13,11 @@ export async function getProducts(req, res) {
 }
 
 // product details
-export async function getProduct(req, res) {
+export async function getProduct(req, res, next) {
   const product = await ProductRepository.getProduct(req, res);
   if (!product) {
-    return res.status(404).json({
-      status: httpStatus.FAIL,
-      data: { product: httpMessages.PRODUCT_NOT_FOUND },
+    throw new AppError(404, "", httpStatus.FAIL, {
+      product: httpMessages.PRODUCT_NOT_FOUND,
     });
   }
   return res.json({
@@ -35,19 +35,16 @@ export async function addProduct(req, res) {
 }
 
 // update product
-export async function updateProduct(req, res) {
+export async function updateProduct(req, res, next) {
   const updatedProduct = await ProductRepository.updateProduct(req, res);
   if (!updatedProduct) {
-    return res.status(404).json({
-      status: httpStatus.FAIL,
-      data: { product: httpMessages.PRODUCT_NOT_FOUND },
+    throw new AppError(404, "", httpStatus.FAIL, {
+      product: httpMessages.PRODUCT_NOT_FOUND,
     });
   }
   res.json({
     status: httpStatus.SUCCESS,
-    data: {
-      product: updatedProduct,
-    },
+    data: { product: updatedProduct },
   });
 }
 
@@ -55,13 +52,12 @@ export async function updateProduct(req, res) {
 export async function deleteProduct(req, res) {
   const deletedProduct = await ProductRepository.deleteProduct(req, res);
   if (!deletedProduct) {
-    return res.status(404).json({
-      status: httpStatus.FAIL,
-      data: { product: httpMessages.PRODUCT_NOT_FOUND },
+    throw new AppError(404, "", httpStatus.FAIL, {
+      product: httpMessages.PRODUCT_NOT_FOUND,
     });
-  } else
-    res.status(204).json({
-      status: httpStatus.SUCCESS,
-      data: null,
-    });
+  }
+  res.json({
+    status: httpStatus.SUCCESS,
+    data: null,
+  });
 }

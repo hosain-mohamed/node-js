@@ -1,12 +1,18 @@
 import express from "express";
+import cors from "cors";
 import di from "./di.js";
 import dotenv from "dotenv";
-import * as httpStatus from "./src/utils/http_status_text.js";
-import * as httpMessages from "./src/utils/http_message_text.js";
+import * as httpStatus from "./src/utils/http.status.text.js";
+import * as httpMessages from "./src/utils/http.message.text.js";
 
-const app = express();
+// use env
 dotenv.config();
-const port = process.env.PORT;
+
+// app
+const app = express();
+
+// cors
+app.use(cors());
 
 // middleware
 app.use(express.urlencoded({ extended: true }));
@@ -15,6 +21,8 @@ app.use(express.json());
 // routes
 import productsRouter from "./src/modules/product/product.router.js";
 app.use("/api/products", productsRouter);
+
+//global middleware for non existent routes
 app.all("*", (req, res) => {
   res.status(404).json({
     status: httpStatus.ERROR,
@@ -22,7 +30,17 @@ app.all("*", (req, res) => {
   });
 });
 
+// global error handler
+app.use((error, req, res, next) => {
+  res.status(error.statusCode || 500).json({
+    status: error.status || httpStatus.ERROR,
+    ...(error.message ? { message: error.message } : {}),
+    ...(!error.data ? {} : { data: error.data }),
+  });
+});
+
 // server
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
