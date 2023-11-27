@@ -8,7 +8,7 @@ import { requestHandler } from "../../middleware/request_handler.js";
 router.get(
   "/",
   validationSchema(validator.getProducts),
-  controller.getProducts
+  requestHandler(controller.getProducts)
 );
 
 // getProductDetails

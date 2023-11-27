@@ -1,9 +1,10 @@
-import * as httpStatus from "../utils/http.status.text.js";
-
 export function requestHandler(functionToHandle) {
-  return (req, res, next) => {
-    functionToHandle(req, res, next).catch(async (error) => {
+  return async (req, res, next) => {
+    try {
+      await functionToHandle(req, res, next);
+    } catch (error) {
+      console.log(error);
       next(error);
-    });
+    }
   };
 }

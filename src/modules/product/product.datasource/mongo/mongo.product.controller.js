@@ -35,13 +35,9 @@ class MongoProductController {
   async updateProduct(req, res) {
     const id = req.params.id;
     return checkValidId(id, async () => {
-      const updatedProduct = await productModel.findByIdAndUpdate(
-        id,
-        req.body,
-        {
-          new: true,
-        }
-      );
+      const updatedProduct = await productModel
+        .findByIdAndUpdate(id, req.body, { new: true })
+        .select({ __v: false });
       return updatedProduct;
     });
   }
@@ -50,7 +46,9 @@ class MongoProductController {
   async deleteProduct(req, res) {
     const id = req.params.id;
     return checkValidId(id, async () => {
-      const deletedProduct = await productModel.findByIdAndDelete(id);
+      const deletedProduct = await productModel.findByIdAndDelete(id, {
+        __v: false,
+      });
       return deletedProduct;
     });
   }

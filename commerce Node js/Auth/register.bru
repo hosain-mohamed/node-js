@@ -1,0 +1,27 @@
+meta {
+  name: register
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}/api/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "firstName": "Hosain",
+    "lastName":"Abdellatif",
+    "email":"hosain@gmail.com",
+    "password":"123456"
+  }
+}
+
+body:multipart-form {
+  firstName: Hosain
+  lastName: Abdellatif
+  email: hosain@gmail.com
+  password: 123456
+}
