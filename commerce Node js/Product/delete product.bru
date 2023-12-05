@@ -5,9 +5,13 @@ meta {
 }
 
 delete {
-  url: {{url}}/api/products/
+  url: {{url}}/api/products/656c9846c2687a019b5cf869
   body: formUrlEncoded
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:form-urlencoded {

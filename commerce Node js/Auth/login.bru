@@ -6,13 +6,20 @@ meta {
 
 post {
   url: {{url}}/api/auth/login
-  body: json
+  body: formUrlEncoded
   auth: none
 }
 
-body:json {
-  {
-    "email":"hosain@gmail.com",
-    "password":"123456"
-  }
+body:form-urlencoded {
+  email: hosain%40gmail.com
+  password: 123456
+}
+
+body:multipart-form {
+  email: hosain@gmail.com
+  password: 123456
+}
+
+script:post-response {
+  bru.setEnvVar("token",res.body.data.token);
 }

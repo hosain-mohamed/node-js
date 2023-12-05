@@ -15,5 +15,4 @@ function handleErrors(error, req, res, next) {
     ...(!error.data ? {} : { data: error.data }),
   });
 }
-
 export { handleNonExistingRoutes, handleErrors };

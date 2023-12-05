@@ -1,4 +1,4 @@
-import { Joi } from "../../middleware/validation.middleware.js";
+import { Joi } from "../../middleware/request.validator.js";
 
 // Validations for product details
 export const getProducts = {

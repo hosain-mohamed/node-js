@@ -5,7 +5,6 @@ export const Joi = joi.defaults((schema) => {
   return schema.options({
     errors: {
       wrap: {
-        // Remove quotes from variable names in error messages
         label: false,
       },
     },
@@ -14,7 +13,7 @@ export const Joi = joi.defaults((schema) => {
 
 const reqValues = ["body", "params", "query"];
 
-export const validationSchema = (schema) => {
+export const requestValidator = (schema) => {
   return (req, res, next) => {
     const errors = [];
     reqValues.forEach((value) => {

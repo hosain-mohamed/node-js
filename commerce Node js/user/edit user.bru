@@ -1,11 +1,11 @@
 meta {
-  name: edit product
+  name: edit user
   type: http
-  seq: 3
+  seq: 5
 }
 
 put {
-  url: {{url}}/api/products/4
+  url: {{url}}/api/users/656f7794fe94a31818171a74
   body: formUrlEncoded
   auth: bearer
 }
@@ -15,6 +15,6 @@ auth:bearer {
 }
 
 body:form-urlencoded {
-  name: Iphone%20555
-  ~price: 200
+  firstName: Hosain
+  email: mahmoud%40gmail.com
 }

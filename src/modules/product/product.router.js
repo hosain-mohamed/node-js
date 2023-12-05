@@ -2,41 +2,45 @@ import { Router } from "express";
 const router = Router();
 import * as controller from "./product.controller.js";
 import * as validator from "./product.validator.js";
-import { validationSchema } from "../../middleware/validation.middleware.js";
-import { requestHandler } from "../../middleware/request_handler.js";
+import { requestValidator } from "../../middleware/request.validator.js";
+import { requestWrapper } from "../../middleware/request.wrapper.js";
+import { verifyToken } from "../../middleware/verify.token.js";
 // get Products
 router.get(
   "/",
-  validationSchema(validator.getProducts),
-  requestHandler(controller.getProducts)
+  requestValidator(validator.getProducts),
+  requestWrapper(controller.getProducts)
 );
 
 // getProductDetails
 router.get(
   "/:id",
-  validationSchema(validator.productDetails),
-  requestHandler(controller.getProduct)
+  requestValidator(validator.productDetails),
+  requestWrapper(controller.getProduct)
 );
 
 // add Product
 router.post(
   "/",
-  validationSchema(validator.addProduct),
-  requestHandler(controller.addProduct)
+  verifyToken,
+  requestValidator(validator.addProduct),
+  requestWrapper(controller.addProduct)
 );
 
 // update Product
 router.put(
   "/:id",
-  validationSchema(validator.updateProduct),
-  requestHandler(controller.updateProduct)
+  verifyToken,
+  requestValidator(validator.updateProduct),
+  requestWrapper(controller.updateProduct)
 );
 
 // delete product
 router.delete(
   "/:id",
-  validationSchema(validator.deleteProduct),
-  requestHandler(controller.deleteProduct)
+  verifyToken,
+  requestValidator(validator.deleteProduct),
+  requestWrapper(controller.deleteProduct)
 );
 
 export default router;

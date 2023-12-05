@@ -14,14 +14,15 @@ body:json {
   {
     "firstName": "Hosain",
     "lastName":"Abdellatif",
-    "email":"hosain@gmail.com",
+    "email":"hosain1@gmail.com",
     "password":"123456"
   }
 }
 
 body:multipart-form {
-  firstName: Hosain
-  lastName: Abdellatif
-  email: hosain@gmail.com
-  password: 123456
+  dfsdf: 
+}
+
+script:post-response {
+  bru.setEnvVar("token",res.body.data.token);
 }

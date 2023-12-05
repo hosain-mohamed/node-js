@@ -1,7 +1,5 @@
+import { checkValidId } from "../../../../utils/check.valid.mongo.id.js";
 import productModel from "./product.model.js";
-import mongoose from "mongoose";
-import AppError from "../../../../utils/app.error.js";
-import * as httpMessages from "../../../../utils/http.message.text.js";
 
 class MongoProductController {
   // get products
@@ -9,10 +7,7 @@ class MongoProductController {
     const page = +req.query.page || 1;
     const limit = +req.query.limit || 10;
     const skip = (page - 1) * limit;
-    const products = await productModel
-      .find({}, { __v: false })
-      .skip(skip)
-      .limit(limit);
+    const products = await productModel.find().skip(skip).limit(limit);
     return products;
   }
 
@@ -20,7 +15,7 @@ class MongoProductController {
   async getProduct(req, res) {
     const id = req.params.id;
     return checkValidId(id, async () => {
-      const product = await productModel.findById(id, { __v: false });
+      const product = await productModel.findById(id);
       return product;
     });
   }
@@ -35,9 +30,12 @@ class MongoProductController {
   async updateProduct(req, res) {
     const id = req.params.id;
     return checkValidId(id, async () => {
-      const updatedProduct = await productModel
-        .findByIdAndUpdate(id, req.body, { new: true })
-        .select({ __v: false });
+      const updatedProduct = await productModel.findByIdAndUpdate(
+        id,
+        req.body,
+        { new: true }
+      );
+
       return updatedProduct;
     });
   }
@@ -46,19 +44,10 @@ class MongoProductController {
   async deleteProduct(req, res) {
     const id = req.params.id;
     return checkValidId(id, async () => {
-      const deletedProduct = await productModel.findByIdAndDelete(id, {
-        __v: false,
-      });
+      const deletedProduct = await productModel.findByIdAndDelete(id);
       return deletedProduct;
     });
   }
-}
-
-// check if product exists
-async function checkValidId(id, callBack) {
-  const isValidId = mongoose.Types.ObjectId.isValid(id);
-  if (!isValidId) throw new AppError(500, httpMessages.INVALID_ID);
-  return callBack();
 }
 
 export default MongoProductController;

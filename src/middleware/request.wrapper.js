@@ -1,4 +1,4 @@
-export function requestHandler(functionToHandle) {
+export function requestWrapper(functionToHandle) {
   return async (req, res, next) => {
     try {
       await functionToHandle(req, res, next);

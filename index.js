@@ -1,8 +1,9 @@
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import di from "./di.js";
-import dotenv from "dotenv";
-import * as errorHandler from "./src/middleware/error_handler.js";
+import * as errorHandler from "./src/middleware/error.handler.js";
+import { loadRoutes } from "./src/routes.js";
 
 // use env
 dotenv.config();
@@ -17,15 +18,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// routes
-import productsRouter from "./src/modules/product/product.router.js";
-import authRouter from "./src/modules/auth/auth.router.js";
-import usersRouter from "./src/modules/auth/auth.router.js";
-
-
-app.use("/api/products", productsRouter);
-app.use("/api/auth", authRouter);
-app.use("/api/users", usersRouter);
+// load routes
+loadRoutes(app);
 
 //global middleware for non existent routes
 app.all("*", (req, res) => {

@@ -2,21 +2,23 @@
 
 import { Router } from "express";
 const router = Router();
-import * as authController from "./auth.controller.js";
-import * as authValidator from "./auth.validator.js";
-import { validationSchema } from "../../middleware/validation.middleware.js";
-import { requestHandler } from "../../middleware/request_handler.js";
+import * as controller from "./auth.controller.js";
+import * as validator from "./auth.validator.js";
+import { requestValidator } from "../../middleware/request.validator.js";
+import { requestWrapper } from "../../middleware/request.wrapper.js";
+import upload from "../../utils/upload.avatar.js";
 
 router.post(
   "/register",
-  validationSchema(authValidator.register),
-  requestHandler(authController.register)
+  upload.single("avatar"),
+  requestValidator(validator.register),
+  requestWrapper(controller.register)
 );
 
 router.post(
   "/login",
-  validationSchema(authValidator.login),
-  requestHandler(authController.login)
+  requestValidator(validator.login),
+  requestWrapper(controller.login)
 );
 
 export default router;

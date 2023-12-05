@@ -20,12 +20,12 @@ class ProductRepository {
 
   // update product
   async updateProduct(req, res) {
-    return this.datasource.updateProduct(req, res);
+    return await this.datasource.updateProduct(req, res);
   }
 
   // delete product
   async deleteProduct(req, res) {
-    return this.datasource.deleteProduct(req, res);
+    return await this.datasource.deleteProduct(req, res);
   }
 }
 

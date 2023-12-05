@@ -7,10 +7,14 @@ meta {
 post {
   url: {{url}}/api/products/
   body: formUrlEncoded
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:form-urlencoded {
-  ~name: Iphone%2010
-  ~price: 4000
+  name: Iphone%2010
+  price: 4000
 }
