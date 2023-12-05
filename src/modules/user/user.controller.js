@@ -7,7 +7,7 @@ import userRepository from "./user.di.js";
 // getUser
 export async function getUser(req, res, next) {
   const user = await userRepository.getUser(req, res, next);
-  if (!user) throw AppError(404, USERNOTFOUND);
+  if (!user) throw new AppError(404, USERNOTFOUND);
   res.status(200).json({
     status: SUCCESS,
     data: { user },
@@ -17,7 +17,7 @@ export async function getUser(req, res, next) {
 // getCurrentUser
 export async function getCurrentUser(req, res, next) {
   const user = await userRepository.getCurrentUser(req, res, next);
-  if (!user) throw AppError(404, USERNOTFOUND);
+  if (!user) throw new AppError(404, USERNOTFOUND);
   res.status(200).json({
     status: SUCCESS,
     data: { user },
@@ -35,7 +35,7 @@ export async function getUsers(req, res, next) {
 // delete user
 export async function deleteUser(req, res, next) {
   const user = await userRepository.deleteUser(req, res, next);
-  if (!user) throw AppError(404, USERNOTFOUND);
+  if (!user) throw new AppError(404, USERNOTFOUND);
   res.status(200).json({
     status: SUCCESS,
     data: null,
@@ -45,7 +45,7 @@ export async function deleteUser(req, res, next) {
 // edit User
 export async function editUser(req, res, next) {
   const user = await userRepository.editUser(req, res, next);
-  if (!user) throw AppError(404, USERNOTFOUND);
+  if (!user) throw new AppError(404, USERNOTFOUND);
   res.status(200).json({
     status: SUCCESS,
     data: { user },
