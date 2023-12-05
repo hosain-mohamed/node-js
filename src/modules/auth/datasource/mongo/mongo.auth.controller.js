@@ -12,7 +12,7 @@ class AuthMongoController {
     // set avatar
     const avatar = req.file ? req.file.path : null;
     if (avatar) {
-      data.avatar = `${process.env.BASE_URL}/${avatar}`;
+      data.avatar = avatar;
     }
 
     // create hashed password

@@ -5,9 +5,7 @@ import dotenv from "dotenv";
 // use env
 dotenv.config();
 
-const baseUrl = `${process.env.BASE_URL}`;
-
-const defaultAvatar = path.join(baseUrl, "uploads", "avatar.png");
+const defaultAvatar = path.join("uploads", "avatar.png");
 
 const userSchema = new mongoose.Schema({
   __v: { type: Number, select: false },
