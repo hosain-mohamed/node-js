@@ -1,9 +1,8 @@
 import dotenv from "dotenv";
 import express from "express";
-import cors from "cors";
 import di from "./di.js";
-import * as errorHandler from "./src/middleware/error.handler.js";
 import { loadRoutes } from "./src/routes.js";
+import * as initialMiddlewares from "./src/middleware/inital.middlewares.js";
 
 // use env
 dotenv.config();
@@ -11,32 +10,21 @@ dotenv.config();
 // app
 const app = express();
 
-// cors
-app.use(cors());
-
-// middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// middlewares
+initialMiddlewares.loadGlobalMiddlewares(app, express);
 
 // load routes
 loadRoutes(app);
 
-//global middleware for non existent routes
-app.all("*", (req, res) => {
-  return errorHandler.handleNonExistingRoutes(req, res);
-});
+// load error middlewares
+initialMiddlewares.loadErrorMiddlewares(app);
 
-// global error handler
-app.use((error, req, res, next) => {
-  return errorHandler.handleErrors(error, req, res, next);
-});
-
-// server
+// Start server
 const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
 
-// DB
+// DB Connection
 const dbConnection = di.dbConnection;
 dbConnection.connect();

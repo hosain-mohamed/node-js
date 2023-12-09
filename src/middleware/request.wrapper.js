@@ -1,3 +1,5 @@
+import { MongooseError } from "mongoose";
+
 export function requestWrapper(functionToHandle) {
   return async (req, res, next) => {
     try {

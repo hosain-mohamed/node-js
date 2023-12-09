@@ -5,11 +5,16 @@ class MongoDBConnection {
     try {
       const connectionString = process.env.MONGO_CONNECTION_STRING;
 
-      mongoose.connect(connectionString).then(() => {
-        console.log("DB Connected");
-      });
+      mongoose
+        .connect(connectionString, {
+          // autoIndex: true,
+        })
+        .then(() => {
+          console.log("DB Connected");
+        });
     } catch (error) {
       console.log(error);
+      process.exit(1);
     }
   }
 }

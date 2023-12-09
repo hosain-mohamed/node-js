@@ -1,5 +1,6 @@
 import { checkValidId } from "../../../../utils/check.valid.mongo.id.js";
 import productModel from "./product.model.js";
+import slugify from "slugify";
 
 class MongoProductController {
   // get products
@@ -22,7 +23,8 @@ class MongoProductController {
 
   // add product
   async addProduct(req, res) {
-    const newProduct = await productModel.create(req.body);
+    const slug = slugify(req.body.name, { lower: true });
+    const newProduct = await productModel.create({ ...req.body, slug });
     return newProduct;
   }
 

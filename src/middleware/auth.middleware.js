@@ -5,7 +5,7 @@ import {
   UNAUTHORIZED,
 } from "../utils/http.message.text.js";
 
-export async function verifyToken(req, res, next) {
+async function isAuthenticated(req, res, next) {
   // get Token from  autherization key in header capital or small
   let token = req.headers["authorization"] || req.headers["Authorization"];
 
@@ -31,3 +31,5 @@ export async function verifyToken(req, res, next) {
     });
   }
 }
+
+export { isAuthenticated };

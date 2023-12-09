@@ -1,13 +1,8 @@
 // User user
 
 import { checkValidId } from "../../../../utils/check.valid.mongo.id.js";
-import {
-  EMAIL_ALREADY_EXISTS,
-  NO_PERMISSION,
-  USER_ALREADY_EXISTS,
-} from "../../../../utils/http.message.text.js";
+import { EMAIL_ALREADY_EXISTS } from "../../../../utils/http.message.text.js";
 import userModel from "./user.model.js";
-import { UserRoles } from "../../../../utils/user_roles.js";
 import AppError from "../../../../utils/app.error.js";
 import { FAIL } from "../../../../utils/http.status.text.js";
 
@@ -46,10 +41,6 @@ class MongoUserController {
     const id = req.params.id;
     const data = req.body;
 
-    // check if the user is not allowd to edit this user
-    if (req.user.role !== UserRoles.ADMIN && req.user._id.toString() !== id) {
-      throw new AppError(403, NO_PERMISSION);
-    }
     // check if the email is already taken
     if (data.email) {
       const existingUser = await userModel.findOne({ email: data.email });

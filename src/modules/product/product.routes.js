@@ -4,7 +4,8 @@ import * as controller from "./product.controller.js";
 import * as validator from "./product.validator.js";
 import { requestValidator } from "../../middleware/request.validator.js";
 import { requestWrapper } from "../../middleware/request.wrapper.js";
-import { verifyToken } from "../../middleware/verify.token.js";
+import { UserRoles, permissionTo } from "../../middleware/permission.to.js";
+import { isAuthenticated } from "../../middleware/auth.middleware.js";
 // get Products
 router.get(
   "/",
@@ -22,7 +23,8 @@ router.get(
 // add Product
 router.post(
   "/",
-  verifyToken,
+  isAuthenticated,
+  permissionTo(UserRoles.ADMIN),
   requestValidator(validator.addProduct),
   requestWrapper(controller.addProduct)
 );
@@ -30,7 +32,8 @@ router.post(
 // update Product
 router.put(
   "/:id",
-  verifyToken,
+  isAuthenticated,
+  permissionTo(UserRoles.ADMIN),
   requestValidator(validator.updateProduct),
   requestWrapper(controller.updateProduct)
 );
@@ -38,7 +41,8 @@ router.put(
 // delete product
 router.delete(
   "/:id",
-  verifyToken,
+  isAuthenticated,
+  permissionTo(UserRoles.ADMIN),
   requestValidator(validator.deleteProduct),
   requestWrapper(controller.deleteProduct)
 );
