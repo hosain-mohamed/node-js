@@ -1,10 +1,13 @@
+import { ERROR } from "./http.status.text.js";
+
 class AppError extends Error {
-  constructor(statusCode, message, status, data) {
+  constructor(statusCode, message, status = ERROR) {
     super(message);
-    this.message = message;
+    console.log("status", status);
     this.statusCode = statusCode;
+    this.message = status == ERROR ? message : undefined;
     this.status = status;
-    this.data = data;
+    this.data = status == ERROR ? undefined : message;
   }
 }
 

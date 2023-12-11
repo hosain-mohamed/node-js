@@ -1,18 +1,13 @@
-// User user
-
-import { checkValidId } from "../../../../utils/check.valid.mongo.id.js";
 import { EMAIL_ALREADY_EXISTS } from "../../../../utils/http.message.text.js";
 import userModel from "./user.model.js";
 import AppError from "../../../../utils/app.error.js";
-import { FAIL } from "../../../../utils/http.status.text.js";
+import { getPaginatedItems } from "../../../../utils/get.paginated.items.js";
 
 class MongoUserController {
   // get user
   async getUser(req, res, next) {
     const id = req.params.id;
-    return checkValidId(id, async () => {
-      return await userModel.findById(id);
-    });
+    return await userModel.findById(id);
   }
 
   // get current user
@@ -24,16 +19,14 @@ class MongoUserController {
 
   // get users
   async getUsers(req, res, next) {
-    const users = await userModel.find({});
+    const users = getPaginatedItems(userModel, req, "users");
     return users;
   }
 
   // delete user
   async deleteUser(req, res, next) {
     const id = req.params.id;
-    return checkValidId(id, async () => {
-      return await userModel.findByIdAndDelete(id);
-    });
+    return await userModel.findByIdAndDelete(id);
   }
 
   // edit user
@@ -45,15 +38,11 @@ class MongoUserController {
     if (data.email) {
       const existingUser = await userModel.findOne({ email: data.email });
       if (existingUser) {
-        throw new AppError(409, "", FAIL, {
-          email: EMAIL_ALREADY_EXISTS,
-        });
+        throw new AppError(409, EMAIL_ALREADY_EXISTS);
       }
     }
-
-    return checkValidId(id, async () => {
-      return await userModel.findByIdAndUpdate(id, { ...data }, { new: true });
-    });
+    // update user
+    return await userModel.findByIdAndUpdate(id, { ...data }, { new: true });
   }
 }
 

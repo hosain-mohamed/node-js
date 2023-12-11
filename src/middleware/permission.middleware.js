@@ -1,6 +1,5 @@
 import AppError from "../utils/app.error.js";
 import { NO_PERMISSION } from "../utils/http.message.text.js";
-import { isAuthenticated } from "./auth.middleware.js";
 
 // check if the user is not allowd to perform an action
 export function permissionTo(...roles) {

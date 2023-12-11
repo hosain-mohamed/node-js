@@ -21,9 +21,7 @@ class AuthMongoController {
     // if user already exists
     const existUser = await userModel.findOne({ email: data.email });
     if (existUser) {
-      throw new AppError(409, "", httpStatus.FAIL, {
-        user: httpMessages.USER_ALREADY_EXISTS,
-      });
+      throw new AppError(409, httpMessages.USER_ALREADY_EXISTS);
     }
 
     // create user
@@ -47,9 +45,7 @@ class AuthMongoController {
       .select("+password");
 
     if (!user) {
-      throw new AppError(404, "", httpStatus.FAIL, {
-        user: httpMessages.USER_NOT_FOUND,
-      });
+      throw new AppError(404, httpMessages.USER_NOT_FOUND);
     }
 
     // check if password is correct
@@ -58,9 +54,7 @@ class AuthMongoController {
       user.password
     );
     if (!isPasswordCorrect) {
-      throw new AppError(401, "", httpStatus.FAIL, {
-        user: httpMessages.INVALID_CREDENTIALS,
-      });
+      throw new AppError(401, httpMessages.INVALID_CREDENTIALS);
     }
 
     // generate token

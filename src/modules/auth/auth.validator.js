@@ -1,4 +1,4 @@
-import { Joi } from "../../middleware/request.validator.js";
+import { Joi } from "../../middleware/validator.middleware.js";
 
 // Auth validator
 export const register = {

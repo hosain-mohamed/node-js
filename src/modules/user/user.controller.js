@@ -29,7 +29,7 @@ export async function getUsers(req, res, next) {
   const users = await userRepository.getUsers(req, res, next);
   res.status(200).json({
     status: SUCCESS,
-    data: { users },
+    data: users,
   });
 }
 // delete user

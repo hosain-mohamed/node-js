@@ -3,6 +3,8 @@
 import productRouter from "./modules/product/product.routes.js";
 import authRouter from "./modules/auth/auth.routes.js";
 import userRouter from "./modules/user/user.routes.js";
+import categroyRouter from "./modules/category/category.routes.js";
+
 import { isAuthenticated } from "./middleware/auth.middleware.js";
 import path from "path";
 import express from "express";
@@ -19,4 +21,5 @@ export function loadRoutes(app) {
   app.use("/api/products", productRouter);
   app.use("/api/auth", authRouter);
   app.use("/api/users", isAuthenticated, userRouter);
+  app.use("/api/categories", categroyRouter);
 }

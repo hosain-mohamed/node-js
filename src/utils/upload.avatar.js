@@ -19,12 +19,7 @@ const fileFilter = (req, file, cb) => {
   if (fileType === "image") {
     cb(null, true);
   } else {
-    cb(
-      new AppError(400, "", FAIL, {
-        data: [{ avatar: "Only images are supported" }],
-      }),
-      false
-    );
+    cb(new AppError(400, { avatar: "Only images are supported" }, FAIL));
   }
 };
 

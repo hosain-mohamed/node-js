@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      unique: [true, "Name is already present"],
+      unique: true,
     },
     price: { type: Number, required: true },
     __v: { type: Number, select: false },

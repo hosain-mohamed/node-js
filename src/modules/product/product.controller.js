@@ -5,10 +5,10 @@ import AppError from "../../utils/app.error.js";
 
 // get products
 export async function getProducts(req, res) {
-  const products = await ProductRepository.getProducts(req, res);
+  const data = await ProductRepository.getProducts(req, res);
   return res.json({
     status: httpStatus.SUCCESS,
-    data: { products },
+    data: data,
   });
 }
 
@@ -16,9 +16,7 @@ export async function getProducts(req, res) {
 export async function getProduct(req, res, next) {
   const product = await ProductRepository.getProduct(req, res);
   if (!product) {
-    throw new AppError(404, "", httpStatus.FAIL, {
-      product: httpMessages.PRODUCT_NOT_FOUND,
-    });
+    throw new AppError(404, httpMessages.PRODUCT_NOT_FOUND);
   }
   return res.json({
     status: httpStatus.SUCCESS,
@@ -38,9 +36,7 @@ export async function addProduct(req, res) {
 export async function updateProduct(req, res, next) {
   const updatedProduct = await ProductRepository.updateProduct(req, res);
   if (!updatedProduct) {
-    throw new AppError(404, "", httpStatus.FAIL, {
-      product: httpMessages.PRODUCT_NOT_FOUND,
-    });
+    throw new AppError(404, httpMessages.PRODUCT_NOT_FOUND);
   }
   res.json({
     status: httpStatus.SUCCESS,
@@ -52,9 +48,7 @@ export async function updateProduct(req, res, next) {
 export async function deleteProduct(req, res) {
   const deletedProduct = await ProductRepository.deleteProduct(req, res);
   if (!deletedProduct) {
-    throw new AppError(404, "", httpStatus.FAIL, {
-      product: httpMessages.PRODUCT_NOT_FOUND,
-    });
+    throw new AppError(404, httpMessages.PRODUCT_NOT_FOUND);
   }
   res.json({
     status: httpStatus.SUCCESS,

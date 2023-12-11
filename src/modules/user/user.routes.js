@@ -1,14 +1,14 @@
 // User router
 import { Router } from "express";
 import * as validator from "./user.validator.js";
-import { requestValidator } from "../../middleware/request.validator.js";
+import { requestValidator } from "../../middleware/validator.middleware.js";
 import * as controller from "./user.controller.js";
 import { requestWrapper } from "../../middleware/request.wrapper.js";
 import {
   CURRENT_USER,
   UserRoles,
   permissionTo,
-} from "../../middleware/permission.to.js";
+} from "../../middleware/permission.middleware.js";
 
 const router = Router();
 
