@@ -5,6 +5,12 @@ import * as controller from "./category.controller.js";
 import * as validator from "./category.validator.js";
 import { requestValidator } from "../../middleware/validator.middleware.js";
 import { requestWrapper } from "../../middleware/request.wrapper.js";
+import { isAuthenticated } from "../../middleware/auth.middleware.js";
+import {
+  UserRoles,
+  permissionTo,
+} from "../../middleware/permission.middleware.js";
+import { uploadImages } from "../../utils/upload.images.js";
 
 // get catgrories
 router.get("/", requestWrapper(controller.getCategories));
@@ -19,6 +25,9 @@ router.get(
 // create category
 router.post(
   "/",
+  isAuthenticated,
+  permissionTo(UserRoles.ADMIN),
+  uploadImages().single("image"),
   requestValidator(validator.createCategory),
   requestWrapper(controller.createCategory)
 );
@@ -26,6 +35,8 @@ router.post(
 // update category
 router.put(
   "/:id",
+  isAuthenticated,
+  permissionTo(UserRoles.ADMIN),
   requestValidator(validator.updateCategory),
   requestWrapper(controller.updateCategory)
 );
@@ -33,6 +44,8 @@ router.put(
 // delete category
 router.delete(
   "/:id",
+  isAuthenticated,
+  permissionTo(UserRoles.ADMIN),
   requestValidator(validator.deleteCategory),
   requestWrapper(controller.deleteCategory)
 );

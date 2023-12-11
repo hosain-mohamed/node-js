@@ -6,11 +6,11 @@ import * as controller from "./auth.controller.js";
 import * as validator from "./auth.validator.js";
 import { requestValidator } from "../../middleware/validator.middleware.js";
 import { requestWrapper } from "../../middleware/request.wrapper.js";
-import upload from "../../utils/upload.avatar.js";
+import { uploadImages } from "../../utils/upload.images.js";
 
 router.post(
   "/register",
-  upload.single("avatar"),
+  uploadImages().single("avatar"),
   requestValidator(validator.register),
   requestWrapper(controller.register)
 );
