@@ -18,10 +18,9 @@ class MongoProductController {
 
   // add product
   async addProduct(req, res) {
-    const slug = slugify(req.body.name, { lower: true });
-    const image = req.file ? req.file.path : null;
-    if (image) req.body.image = image;
-    const newProduct = await productModel.create({ ...req.body, slug });
+    if (req.body.name) req.body.slug = slugify(req.body.name, { lower: true });
+    if (req.file) req.body.image = req.file.path;
+    const newProduct = await productModel.create(req.body);
     return newProduct;
   }
 

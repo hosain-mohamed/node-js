@@ -19,10 +19,9 @@ class MongoCategoryController {
   }
 
   async createCategory(req, res) {
-    const slug = slugify(req.body.name, { lower: true });
-    const image = req.file ? req.file.path : null;
-    if (image) req.body.image = image;
-    const newCategory = await CategoryModel.create({ ...req.body, slug });
+    if (req.body.name) req.body.slug = slugify(req.body.name, { lower: true });
+    if (req.file) req.body.image = req.file.path;
+    const newCategory = await CategoryModel.create(req.body);
     return newCategory;
   }
 
