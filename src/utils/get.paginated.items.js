@@ -1,4 +1,4 @@
-export async function getPaginatedItems(model, req, itemsName = "items") {
+async function getPaginatedItems(model, req, itemsName = "items") {
   const page = +req.query.page || 1;
   const limit = +req.query.limit || 10;
   const skip = (page - 1) * limit;
@@ -19,3 +19,5 @@ export async function getPaginatedItems(model, req, itemsName = "items") {
     },
   };
 }
+
+export default getPaginatedItems;

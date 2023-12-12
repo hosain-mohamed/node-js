@@ -1,9 +1,8 @@
 // Auth mongo controller
 import bcrypt from "bcrypt";
 import * as httpMessages from "../../../../utils/http.message.text.js";
-import { generateToken } from "../../../../utils/generate_token.js";
+import generateToken from "../../../../utils/generate_token.js";
 import AppError from "../../../../utils/app.error.js";
-import * as httpStatus from "../../../../utils/http.status.text.js";
 import userModel from "../../../user/datasource/mongo/user.model.js";
 
 class AuthMongoController {

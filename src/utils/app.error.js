@@ -5,9 +5,9 @@ class AppError extends Error {
     super(message);
     console.log("status", status);
     this.statusCode = statusCode;
-    this.message = status == ERROR ? message : undefined;
+    this.message = status === ERROR ? message : undefined;
     this.status = status;
-    this.data = status == ERROR ? undefined : message;
+    this.data = status === ERROR ? undefined : message;
   }
 }
 

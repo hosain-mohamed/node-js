@@ -1,3 +1,3 @@
 const uploadPath = "uploads";
 
-export { uploadPath };
+export default uploadPath;

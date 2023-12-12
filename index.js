@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import di from "./di.js";
-import { loadRoutes } from "./src/routes.js";
+import loadRoutes from "./src/routes.js";
 import {
   loadErrorMiddlewares,
   loadGlobalMiddlewares,
@@ -30,7 +30,7 @@ const server = app.listen(port, () => {
 });
 
 // DB Connection
-const dbConnection = di.dbConnection;
+const { dbConnection } = di;
 dbConnection.connect();
 
 // Handle unhandled rejections

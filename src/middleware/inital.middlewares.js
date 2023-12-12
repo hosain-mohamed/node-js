@@ -1,5 +1,5 @@
-import logger from "../utils/logger.js";
 import cors from "cors";
+import logger from "../utils/logger.js";
 import { handleErrors, handleNonExistingRoutes } from "./error.middleware.js";
 
 export function loadGlobalMiddlewares(app, express) {
@@ -18,12 +18,8 @@ export function loadGlobalMiddlewares(app, express) {
 
 export function loadErrorMiddlewares(app) {
   //global middleware for non existent routes
-  app.all("*", (req, res, next) => {
-    return handleNonExistingRoutes(req, res, next);
-  });
+  app.all("*", (req, res, next) => handleNonExistingRoutes(req, res, next));
 
   // global error handler
-  app.use((error, req, res, next) => {
-    return handleErrors(error, req, res, next);
-  });
+  app.use((error, req, res, next) => handleErrors(error, req, res, next));
 }

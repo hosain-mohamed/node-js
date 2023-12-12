@@ -7,7 +7,7 @@ import {
 
 async function isAuthenticated(req, res, next) {
   // get Token from  autherization key in header capital or small
-  let token = req.headers["authorization"] || req.headers["Authorization"];
+  let token = req.headers.authorization || req.headers.Authorization;
 
   if (token && token.startsWith("Bearer ")) {
     // Remove Bearer from string
@@ -32,4 +32,4 @@ async function isAuthenticated(req, res, next) {
   }
 }
 
-export { isAuthenticated };
+export default isAuthenticated;

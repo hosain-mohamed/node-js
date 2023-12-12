@@ -1,15 +1,17 @@
 import { Router } from "express";
-const router = Router();
 import * as controller from "./product.controller.js";
 import * as validator from "./product.validator.js";
 import { requestValidator } from "../../middleware/validator.middleware.js";
-import { requestWrapper } from "../../middleware/request.wrapper.js";
+import requestWrapper from "../../middleware/request.wrapper.js";
 import {
   UserRoles,
   permissionTo,
 } from "../../middleware/permission.middleware.js";
-import { isAuthenticated } from "../../middleware/auth.middleware.js";
-import { uploadImages } from "../../utils/upload.images.js";
+import isAuthenticated from "../../middleware/auth.middleware.js";
+import uploadImages from "../../utils/upload.images.js";
+
+const router = Router();
+
 // get Products
 router.get(
   "/",

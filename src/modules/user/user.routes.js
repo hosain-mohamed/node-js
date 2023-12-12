@@ -1,9 +1,8 @@
-// User router
 import { Router } from "express";
 import * as validator from "./user.validator.js";
 import { requestValidator } from "../../middleware/validator.middleware.js";
 import * as controller from "./user.controller.js";
-import { requestWrapper } from "../../middleware/request.wrapper.js";
+import requestWrapper from "../../middleware/request.wrapper.js";
 import {
   CURRENT_USER,
   UserRoles,
@@ -23,10 +22,7 @@ router.get(
 );
 
 // get users
-router.get(
-  "/",
-  requestWrapper(controller.getUsers)
-);
+router.get("/", requestWrapper(controller.getUsers));
 
 // delete user
 router.delete(

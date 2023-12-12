@@ -1,6 +1,11 @@
 import AppError from "../utils/app.error.js";
 import { NO_PERMISSION } from "../utils/http.message.text.js";
 
+export const CURRENT_USER = "currentUser";
+
+function isSameUserId(req) {
+  return req.user._id.toString() === req.params.id;
+}
 // check if the user is not allowd to perform an action
 export function permissionTo(...roles) {
   return (req, res, next) => {
@@ -13,13 +18,7 @@ export function permissionTo(...roles) {
   };
 }
 
-function isSameUserId(req) {
-  return req.user._id.toString() === req.params.id;
-}
-
 export const UserRoles = {
   ADMIN: "admin",
   USER: "user",
 };
-
-export const CURRENT_USER = "currentUser";

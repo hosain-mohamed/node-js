@@ -1,12 +1,13 @@
 // Auth router
 
 import { Router } from "express";
-const router = Router();
 import * as controller from "./auth.controller.js";
 import * as validator from "./auth.validator.js";
 import { requestValidator } from "../../middleware/validator.middleware.js";
-import { requestWrapper } from "../../middleware/request.wrapper.js";
-import { uploadImages } from "../../utils/upload.images.js";
+import uploadImages from "../../utils/upload.images.js";
+import requestWrapper from "../../middleware/request.wrapper.js";
+
+const router = Router();
 
 router.post(
   "/register",

@@ -1,18 +1,18 @@
 import { EMAIL_ALREADY_EXISTS } from "../../../../utils/http.message.text.js";
 import userModel from "./user.model.js";
 import AppError from "../../../../utils/app.error.js";
-import { getPaginatedItems } from "../../../../utils/get.paginated.items.js";
+import getPaginatedItems from "../../../../utils/get.paginated.items.js";
 
 class MongoUserController {
   // get user
   async getUser(req, res, next) {
-    const id = req.params.id;
+    const { id } = req.params;
     return await userModel.findById(id);
   }
 
   // get current user
   async getCurrentUser(req, res, next) {
-    const user = req.user;
+    const { user } = req;
     user.password = undefined;
     return user;
   }
@@ -25,13 +25,13 @@ class MongoUserController {
 
   // delete user
   async deleteUser(req, res, next) {
-    const id = req.params.id;
+    const { id } = req.params;
     return await userModel.findByIdAndDelete(id);
   }
 
   // edit user
   async editUser(req, res, next) {
-    const id = req.params.id;
+    const { id } = req.params;
     const data = req.body;
 
     // check if the email is already taken

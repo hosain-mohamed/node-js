@@ -1,6 +1,6 @@
-import { getPaginatedItems } from "../../../../utils/get.paginated.items.js";
-import productModel from "./product.model.js";
 import slugify from "slugify";
+import getPaginatedItems from "../../../../utils/get.paginated.items.js";
+import productModel from "./product.model.js";
 
 class MongoProductController {
   // get products
@@ -11,7 +11,7 @@ class MongoProductController {
 
   // product details
   async getProduct(req, res) {
-    const id = req.params.id;
+    const { id } = req.params;
     const product = await productModel.findById(id);
     return product;
   }
@@ -26,7 +26,7 @@ class MongoProductController {
 
   // edit product
   async updateProduct(req, res) {
-    const id = req.params.id;
+    const { id } = req.params;
     if (req.body.name) req.body.slug = slugify(req.body.name, { lower: true });
     const updatedProduct = await productModel.findByIdAndUpdate(id, req.body, {
       new: true,
@@ -37,7 +37,7 @@ class MongoProductController {
 
   // delete product
   async deleteProduct(req, res) {
-    const id = req.params.id;
+    const { id } = req.params;
     const deletedProduct = await productModel.findByIdAndDelete(id);
     return deletedProduct;
   }

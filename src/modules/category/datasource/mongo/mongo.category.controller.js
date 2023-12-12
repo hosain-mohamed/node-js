@@ -1,6 +1,6 @@
 // Category category
 import slugify from "slugify";
-import { getPaginatedItems } from "../../../../utils/get.paginated.items.js";
+import getPaginatedItems from "../../../../utils/get.paginated.items.js";
 import CategoryModel from "./category.model.js";
 
 class MongoCategoryController {
@@ -26,7 +26,7 @@ class MongoCategoryController {
   }
 
   async updateCategory(req, res) {
-    const id = req.params.id;
+    const { id } = req.params;
     if (req.body.name) req.body.slug = slugify(req.body.name, { lower: true });
     const updatedCategory = await CategoryModel.findByIdAndUpdate(
       id,
@@ -40,7 +40,7 @@ class MongoCategoryController {
   }
 
   async deleteCategory(req, res) {
-    const id = req.params.id;
+    const { id } = req.params;
     const deletedCategory = await CategoryModel.findByIdAndDelete(id);
     return deletedCategory;
   }

@@ -1,16 +1,16 @@
 import multer from "multer";
-import { uploadPath } from "./paths.js";
+import uploadPath from "./paths.js";
 import AppError from "./app.error.js";
 import { FAIL } from "./http.status.text.js";
 
-export function uploadImages(fileName) {
+function uploadImages(fileName) {
   const diskStorage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, uploadPath);
     },
     filename: function (req, file, cb) {
       const ext = file.mimetype.split("/")[1];
-      const name = (!fileName ? `avatar` : fileName) + `${Date.now()}.${ext}`;
+      const name = `${!fileName ? `avatar` : fileName  }${Date.now()}.${ext}`;
       cb(null, name);
     },
   });
@@ -29,3 +29,5 @@ export function uploadImages(fileName) {
     fileFilter: fileFilter,
   });
 }
+
+export default uploadImages;

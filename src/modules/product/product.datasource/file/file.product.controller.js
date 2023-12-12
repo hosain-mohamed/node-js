@@ -3,7 +3,21 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const productsPath = __dirname + "/products.json";
+const productsPath = `${__dirname}/products.json`;
+
+async function getProductsFromFile() {
+  if (!fs.existsSync(productsPath)) {
+    return [];
+  }
+  const content = JSON.parse(fs.readFileSync(productsPath, "utf8"));
+  return content;
+}
+
+async function _getProduct(id) {
+  const products = await getProductsFromFile();
+  const product = products.find((productParam) => productParam.id === id);
+  return product;
+}
 
 class FileProductController {
   // get products
@@ -16,7 +30,7 @@ class FileProductController {
   async getProduct(req, res) {
     const id = +req.params.id;
     const products = await getProductsFromFile();
-    const product = products.find((product) => product.id === id);
+    const product = products.find((productParam) => productParam.id === id);
     return product;
   }
 
@@ -29,8 +43,8 @@ class FileProductController {
       products = [];
     }
     // set id to the max id in the products + 1
-    const maxId = products.reduce((maxId, product) => {
-      if (product.id > maxId) maxId = product.id;
+    const maxId = products.reduce((maxIdParam, product) => {
+      if (product.id > maxIdParam) maxIdParam = product.id;
       return maxId;
     }, 0);
 
@@ -46,7 +60,7 @@ class FileProductController {
     const id = +req.params.id;
     const product = await _getProduct(id);
     if (!product) return;
-    const index = products.findIndex((product) => product.id === id);
+    const index = products.findIndex((productParam) => productParam.id === id);
     products[index] = { ...product, ...req.body };
 
     fs.writeFileSync(productsPath, JSON.stringify(products));
@@ -59,24 +73,10 @@ class FileProductController {
     const id = +req.params.id;
     const product = await _getProduct(id);
     if (!product) return;
-    const index = products.findIndex((product) => product.id === id);
+    const index = products.findIndex((productParam) => productParam.id === id);
     products.splice(index, 1);
     fs.writeFileSync(productsPath, JSON.stringify(products));
     return product;
-  }
-}
-
-async function _getProduct(id) {
-  const products = await getProductsFromFile();
-  const product = products.find((product) => product.id === id);
-  return product;
-}
-async function getProductsFromFile() {
-  if (!fs.existsSync(productsPath)) {
-    return [];
-  } else {
-    const content = JSON.parse(fs.readFileSync(productsPath, "utf8"));
-    return content;
   }
 }
 
